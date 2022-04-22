@@ -1,10 +1,17 @@
 pipeline {
      agent any
      stages {
-        stage("Deploy") {
+        stage("Build") {
             steps {
-                 sh 'sudo cp -r ./* /home/ec2-user/jenkins-react-app-1/'
+                sh "sudo npm install"
+                sh "sudo npm run build"
+                sh "sudo npm start"
             }
-        }
-    }
+     }      
+     stage("Deploy") {
+         steps {
+              sh 'sudo cp -r ./* /home/ec2-user/calculator/'
+         }
+     }
+   }
 }
